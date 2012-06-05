@@ -6,18 +6,6 @@ from BeautifulSoup import BeautifulSoup
 from mechanize import Browser
 
 class AppInfo:
-	def __init__(self):
-		# self.name = "Motion Math Zoom"
-		# self.category = "Education"
-		# self.version = "2.1"
-		# self.size = "19.1MB"
-		# self.updated = "2011-12-30"
-		# self.price = "Free"
-		# self.developer = "Motion Math"
-		# self.language = "English"
-		# self.description = "An animal adventure through the world of numbers! Give your child a chance to play with numbers - they'll have a blast zooming through the number line as they master place value."
-		pass
-
 	def get_app_info(self, uri):
 		# <div rating-software="100,itunes-games" parental-rating="1" class="lockup product application">
 		#  <ul class="list">
@@ -33,11 +21,13 @@ class AppInfo:
 		#  <div class="app-rating"><a href="http://itunes.apple.com/WebObjects/MZStore.woa/wa/appRatings">限4岁以上</a></div>
 		#  <p><span class="app-requirements">系统要求： </span>与 iPhone、iPod touch、iPad 兼容。需要 iOS 4.0 或更高版本</p>
 		# </div>
+		# <div class="product"><img width="175" height="175" alt="Motion Math Zoom" class="artwork" src="http://a4.mzstatic.com/us/r1000/091/Purple/e3/97/f3/mzl.fyqdmygq.175x175-75.jpg" /></div>
 		br = Browser()
 		res = br.open(uri)
 		data = res.get_data() 
 		soup = BeautifulSoup(data)
 		self.name = soup.find('div', attrs={"id" : "title"}).h1.renderContents()
+		self.artwork = soup.find('div', attrs={"id" : "left-stack"}).div.img["src"]
 		self.category = "Education"
 		self.version = "2.1"
 		self.size = "19.1MB"
@@ -46,12 +36,15 @@ class AppInfo:
 		self.developer = soup.find('div', attrs={"id" : "title"}).h2.renderContents()
 		self.language = "English"
 		self.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
-		self.debug()
+		#self.debug()
 
 	def post_app_info(self, username, password):
-		self.debug()
-		uri = "http://www.yebob.com/accounts/Login"
+		#self.debug()
 		br = Browser()
+		fn = br.retrieve(self.artwork)[0]
+		#print fn
+
+		uri = "http://www.yebob.com/accounts/Login"
 		br.open(uri)
 		
 		# for f in br.forms():
@@ -101,11 +94,18 @@ class AppInfo:
 		#print br.response().read()
 		br.response().read()
 
+		br.select_form(nr=1)
+		br.form.add_file(open(fn), 'image/jpeg', fn)
+		br.submit()
+		br.response().read()
+
+
 	def debug(self):
 		import sys
 		reload(sys).setdefaultencoding('utf8')
 
 		print("name: %s" % (self.name))
+		print("artwork: %s" % (self.artwork))
 		print("developer: %s" % (self.developer))
 		print("description: %s" % (self.description))
 		
