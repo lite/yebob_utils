@@ -3,6 +3,7 @@
 
 import sys 
 from AppInfo import AppInfo
+import yaml
 
 def usage():  
 	print("%s <app_url_in_market>" %sys.argv[0]); 
@@ -14,9 +15,11 @@ if "__main__" == __name__:
 		usage()  
 		sys.exit(1)  
 
-	username = ""
-	password = ""
-	print "%s %s" % (sys.argv[0], sys.argv[1])
+	config = yaml.load(file('config.yaml', 'r'))
+	username = config["user"]
+	password = config["pass"]
+	print "user is:%s, pass is:%s" % (username, password)
+
 	info = AppInfo()
 	info.get_app_info(sys.argv[1]);
 	info.post_app_info(username, password)
