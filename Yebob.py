@@ -3,7 +3,6 @@
 
 import yaml
 from urllib import urlencode
-from BeautifulSoup import BeautifulSoup
 from mechanize import Browser
 
 class Yebob:

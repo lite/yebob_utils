@@ -9,6 +9,8 @@ def usage():
 	print("%s <app_url_in_market>" %sys.argv[0]); 
 	print("\t<app_url_in_market> is the app url in market or app store"); 
 	print("\t         %s \"http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8\"" %sys.argv[0]); 
+	print("\t         %s \"https://play.google.com/store/apps/category/GAME/collection/topselling_free\"" %sys.argv[0]); 
+	
   
 if "__main__" == __name__:  
 	if len(sys.argv) != 2:  
