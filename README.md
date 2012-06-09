@@ -3,7 +3,7 @@ yebob_utils
 
 	main.py <app_url_in_market>
 		<app_url_in_market> is the app url in market or app store
-		example: main.py http://itunes.apple.com/cn/app/motion-math-zoom/id451793073
+	main.py http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8
 
 Config
 ====
