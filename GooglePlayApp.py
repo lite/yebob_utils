@@ -22,8 +22,9 @@ class GooglePlayApp:
 		res = self.br.open(uri)
 		data = res.get_data()
 		soup = BeautifulSoup(data, "html5lib")
-		urls = soup.find_all("a")
-	
+		snippet = soup.find('div', attrs={"class" : "num-pagination-page"})
+		urls = snippet.find_all("a", attrs={"class" : "title"})
+		
 		return [ url.get('href') for url in urls ]
 			
 

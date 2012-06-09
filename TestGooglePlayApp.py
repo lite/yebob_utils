@@ -15,7 +15,6 @@ class TestGooglePlayApp(unittest.TestCase):
 		assert len(links) != 0, "len(links) is 0"
 		
  	def test_get_app_info(self):
- 		return
  		uri = "https://play.google.com/store/apps/details?id=com.feelingtouch.racingcar"
  		info = self.market.get_app_info(uri)
 		assert info.name != None, "app name is None"

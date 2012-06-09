@@ -17,9 +17,8 @@ class ItunesApp:
 		tags = soup.find(id="selectedcontent")
 		urls = tags.findAll('a')
 		
-		return [ url["href"] for url in urls ]
+		return [ url.get('href') for url in urls ]
 			
-
 	def get_app_info(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data() 
