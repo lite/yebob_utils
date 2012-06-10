@@ -7,6 +7,8 @@ from AppInfo import AppInfo
 import re
 
 class GooglePlayApp:
+	host="https://play.google.com"
+
 	def __init__(self):
 
 		self.br = Browser()
@@ -25,7 +27,7 @@ class GooglePlayApp:
 		snippet = soup.find('div', attrs={"class" : "num-pagination-page"})
 		urls = snippet.find_all("a", attrs={"class" : "title"})
 		
-		return [ url.get('href') for url in urls ]
+		return [ self.host+url.get('href') for url in urls ]
 			
 
 	def get_app_info(self, uri):
@@ -33,18 +35,19 @@ class GooglePlayApp:
 		data = res.get_data() 
 		soup = BeautifulSoup(data)
 		info = AppInfo()
-		info.name = soup.find('div', attrs={"id" : "title"}).h1.renderContents()
+		info.name = soup.find('h1', attrs={"class" : "doc-banner-title"}).renderContents()
 		info.category = "Education"
 		info.version = "2.1"
 		info.size = "19.1MB"
 		info.updated = "2011-12-30"
 		info.price = "Free"
-		info.developer = soup.find('div', attrs={"id" : "title"}).h2.renderContents()
+		info.developer = soup.find('a', attrs={"class" : "doc-header-link"}).renderContents()
 		info.language = "English"
-		info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
-		
-		artwork = soup.find('div', attrs={"id" : "left-stack"}).div.img["src"]
+		# info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
+		info.description = soup.find(id="doc-original-text").renderContents()
+
+		artwork = soup.find('div', attrs={"class" : "doc-banner-icon"}).img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
 		
-		#info.debug()
+		info.debug()
 		return info

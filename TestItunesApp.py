@@ -11,7 +11,7 @@ class TestItunesApp(unittest.TestCase):
 	def test_get_app_links(self):
 		uri = "http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8"
  		links = self.itunes.get_app_links(uri)
-		assert links != None, "links is None"
+ 		assert links != None, "links is None"
 		assert len(links) != 0, "len(links) is 0"
 		
  	def test_get_app_info(self):

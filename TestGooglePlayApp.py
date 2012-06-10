@@ -11,6 +11,7 @@ class TestGooglePlayApp(unittest.TestCase):
 	def test_get_app_links(self):
 		uri = "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
  		links = self.market.get_app_links(uri)
+ 		print links
  		assert links != None, "links is None"
 		assert len(links) != 0, "len(links) is 0"
 		

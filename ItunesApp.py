@@ -9,7 +9,7 @@ class ItunesApp:
 	def __init__(self):
 		self.br = Browser()
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
-		
+
 	def get_app_links(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data() 
