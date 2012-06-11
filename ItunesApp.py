@@ -24,18 +24,21 @@ class ItunesApp:
 		data = res.get_data() 
 		soup = BeautifulSoup(data, "html5lib")
 		info = AppInfo()
-		info.name = soup.find(id="title").h1.renderContents()
-		info.category = "Education"
-		info.version = "2.1"
-		info.size = "19.1MB"
-		info.updated = "2011-12-30"
-		info.price = "Free"
-		info.developer = soup.find(id="title").h2.renderContents()
-		info.language = "English"
-		info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
+		#info.name = soup.html.head.title.renderContents()
+		info.name = soup.find(id="content").h1.renderContents()
+		info.category = ""
+		info.version = ""
+		info.size = ""
+		info.updated = ""
+		info.price = ""
+		developer = soup.find(id="desktopContentBlockId").h2.renderContents()
+		info.developer = developer[12:45] 
+		info.language = ""
+		desc = soup.find('div', attrs={"class" : "product-review"}).p.renderContents()
+		info.description = re.sub("<br\s*/>", "\n", desc)
 		
 		artwork = soup.find(id="left-stack").div.img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
 		
-		#info.debug()
+		info.debug()
 		return info

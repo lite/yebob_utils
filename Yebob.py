@@ -2,42 +2,53 @@
 # coding=utf-8
 
 import yaml
+import time
 from urllib import urlencode
 from mechanize import Browser
 
 class Yebob:
 	def __init__(self, config):
+		self.br = Browser()
+		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
+
 		config = yaml.load(file(config, 'r'))
 		username = config["user"]
 		password = config["pass"]
 
-		self.br = Browser()
 		uri = "http://www.yebob.com/accounts/Login"
 		self.br.open(uri)
 		self.br.select_form(nr=0)
 		self.br.form['na']= username
 		self.br.form['pw']= password
-		self.br.submit()
-		self.br.response().read()
+		self.br.submit().read()
 		
 	def post_app_info(self, info):
 		params = urlencode({"c":"game"})
 		uri =  "http://www.yebob.com/game/product/create?%s" % (params)
-		self.br.open(uri)
+		self.br.open(uri).read()
 		self.br.select_form(nr=1)
 		self.br.form['sname']= info.name
 		self.br.form['cname']= info.name
-		self.br.form['oname[]']= "又名"
 		self.br.form['developer[]']= info.developer
-		self.br.form['os[]']= "Android"
+		#self.br.form['developer[]']= ""
+		self.br.form['desc']= info.description
+		self.br.form['oname[]']= ""
+		self.br.form['os[]']= "iOS"
 		self.br.form['device[]']= "手机"
 		self.br.form['lang[]']= "中文"
-		self.br.form['site']= "www.yebob.com"
-		self.br.form['year']= "2011"
-		self.br.form['desc']= info.description
-		self.br.submit()
-		self.br.response().read()
+		self.br.form['site']= ""
+		self.br.form['year']= ""
+		self.br.submit().read()
 		self.br.select_form(nr=1)
-		self.br.form.add_file(open(info.artwork), 'image/jpeg', info.artwork)
-		self.br.submit()
-		self.br.response().read()
+		info.product_id = self.br.form["product_id"]
+		print info.product_id
+		self.upload_app_icon(info)
+		return info.product_id
+		
+	def upload_app_icon(self, info):
+		uri = "http://www.yebob.com/game/product/update-logo?product_id=%s" % (info.product_id)
+		self.br.open(uri).read()
+		self.br.select_form(nr=1)
+		self.br.form.add_file(open(info.artwork), 'image/jpeg', info.artwork, name='file')
+		self.br.submit().read()
+		
