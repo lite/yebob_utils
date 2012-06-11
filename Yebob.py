@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import yaml
-import time
+import re
 from urllib import urlencode
 from mechanize import Browser
 
@@ -29,11 +29,12 @@ class Yebob:
 		self.br.select_form(nr=1)
 		self.br.form['sname']= info.name
 		self.br.form['cname']= info.name
-		self.br.form['developer[]']= info.developer
-		#self.br.form['developer[]']= ""
-		self.br.form['desc']= info.description
+		developer = info.developer[0:30] 
+		self.br.form['developer[]']= developer
+		desc = re.sub("<(br|p)\s*/>", "\n", info.description)
+		self.br.form['desc']= desc
 		self.br.form['oname[]']= ""
-		self.br.form['os[]']= "iOS"
+		self.br.form['os[]']= info.os
 		self.br.form['device[]']= "手机"
 		self.br.form['lang[]']= "中文"
 		self.br.form['site']= ""

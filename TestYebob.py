@@ -30,6 +30,7 @@ class TestYebob(unittest.TestCase):
 		info.price = "Free"
 		info.developer = "Motion Math"
 		info.language = "English"
+		info.os = "iOS"
 		info.description = "An animal adventure through the world of numbers! Give your child a chance to play with numbers - they'll have a blast zooming through the number line as they master place value."
 		return info
 

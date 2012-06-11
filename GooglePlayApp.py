@@ -4,7 +4,6 @@
 from bs4 import BeautifulSoup
 from mechanize import Browser
 from AppInfo import AppInfo
-import re
 
 class GooglePlayApp:
 	host="https://play.google.com"
@@ -36,13 +35,14 @@ class GooglePlayApp:
 		soup = BeautifulSoup(data)
 		info = AppInfo()
 		info.name = soup.find('h1', attrs={"class" : "doc-banner-title"}).renderContents()
-		info.category = "Education"
-		info.version = "2.1"
-		info.size = "19.1MB"
-		info.updated = "2011-12-30"
-		info.price = "Free"
+		info.category = ""
+		info.version = ""
+		info.size = ""
+		info.updated = ""
+		info.price = ""
+		info.os = "Android"
 		info.developer = soup.find('a', attrs={"class" : "doc-header-link"}).renderContents()
-		info.language = "English"
+		info.language = ""
 		# info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
 		info.description = soup.find(id="doc-original-text").renderContents()
 

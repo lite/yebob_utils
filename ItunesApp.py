@@ -31,11 +31,11 @@ class ItunesApp:
 		info.size = ""
 		info.updated = ""
 		info.price = ""
+		info.os = "iOS"
 		developer = soup.find(id="desktopContentBlockId").h2.renderContents()
-		info.developer = developer[12:45] 
+		info.developer = developer[12:-1] 
 		info.language = ""
-		desc = soup.find('div', attrs={"class" : "product-review"}).p.renderContents()
-		info.description = re.sub("<br\s*/>", "\n", desc)
+		info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents()
 		
 		artwork = soup.find(id="left-stack").div.img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
