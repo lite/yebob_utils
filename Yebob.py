@@ -2,7 +2,6 @@
 # coding=utf-8
 
 import yaml
-import re
 from urllib import urlencode
 from mechanize import Browser
 
@@ -31,8 +30,7 @@ class Yebob:
 		self.br.form['cname']= info.name
 		developer = info.developer[0:30] 
 		self.br.form['developer[]']= developer
-		desc = re.sub("<(br|p)\s*/>", "\n", info.description)
-		self.br.form['desc']= desc
+		self.br.form['desc']= info.description
 		self.br.form['oname[]']= ""
 		self.br.form['os[]']= info.os
 		self.br.form['device[]']= "手机"

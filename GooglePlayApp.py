@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import re
 from bs4 import BeautifulSoup
 from mechanize import Browser
 from AppInfo import AppInfo
@@ -44,7 +45,8 @@ class GooglePlayApp:
 		info.developer = soup.find('a', attrs={"class" : "doc-header-link"}).renderContents()
 		info.language = ""
 		# info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
-		info.description = soup.find(id="doc-original-text").renderContents()
+		desc = soup.find(id="doc-original-text").renderContents()
+		info.description = re.sub("<p>|</p>", "\n", desc)
 
 		artwork = soup.find('div', attrs={"class" : "doc-banner-icon"}).img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
