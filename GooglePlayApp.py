@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import re
 from bs4 import BeautifulSoup
 from mechanize import Browser
 from AppInfo import AppInfo
@@ -33,7 +32,7 @@ class GooglePlayApp:
 	def get_app_info(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data() 
-		soup = BeautifulSoup(data)
+		soup = BeautifulSoup(data, "html5lib")
 		info = AppInfo()
 		info.name = soup.find('h1', attrs={"class" : "doc-banner-title"}).renderContents()
 		info.category = ""
@@ -45,8 +44,8 @@ class GooglePlayApp:
 		info.developer = soup.find('a', attrs={"class" : "doc-header-link"}).renderContents()
 		info.language = ""
 		# info.description = soup.find('div', attrs={"class" : "product-review"}).p.renderContents().replace("<br />", "\n")
-		desc = soup.find(id="doc-original-text").renderContents()
-		info.description = re.sub("<p>|</p>", "\n", desc)
+		desc = soup.find(id="doc-original-text").text
+		info.description = desc
 
 		artwork = soup.find('div', attrs={"class" : "doc-banner-icon"}).img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]

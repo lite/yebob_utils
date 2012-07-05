@@ -7,6 +7,8 @@ yebob_utils
 	./main.py "http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8"
 	./main.py "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
 	./main.py "https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh"
+	./main.py "http://www.51ipa.com/games/rpg/"
+	./main.py "http://www.51ipa.com/games/rpg/PiPHero-iPhone.html"
 
 Config
 ====

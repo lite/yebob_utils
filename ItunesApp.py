@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import re
 from bs4 import BeautifulSoup
 from mechanize import Browser
 from AppInfo import AppInfo
@@ -36,8 +35,8 @@ class ItunesApp:
 		developer = soup.find(id="desktopContentBlockId").h2.renderContents()
 		info.developer = developer[12:-1] 
 		info.language = ""
-		desc = soup.find('div', attrs={"class" : "product-review"}).p.renderContents()
-		info.description = re.sub("<br\s*/>", "\n", desc)
+		desc = soup.find('div', attrs={"class" : "product-review"}).p.text
+		info.description = desc
 		
 		artwork = soup.find(id="left-stack").div.img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
