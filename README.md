@@ -5,10 +5,14 @@ yebob_utils
 		<app_url_in_market> is the app url in market or app store
 	./main.py "http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8"
 	./main.py "http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8"
+	
 	./main.py "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
 	./main.py "https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh"
+	./main.py "https://play.google.com/store/apps/developer?id=GoodTeam"
+
 	./main.py "http://www.51ipa.com/games/rpg/"
-	./main.py "http://www.51ipa.com/games/rpg/PiPHero-iPhone.html"
+	./main.py "http://www.51ipa.com/games/rpg/PiPHero-iPhone.html
+
 
 Config
 ====

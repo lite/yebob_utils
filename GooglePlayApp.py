@@ -28,7 +28,6 @@ class GooglePlayApp:
 		
 		return [ self.host+url.get('href') for url in urls ]
 			
-
 	def get_app_info(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data() 
@@ -49,6 +48,10 @@ class GooglePlayApp:
 
 		artwork = soup.find('div', attrs={"class" : "doc-banner-icon"}).img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
-		
+
+		div_images = soup.find('div', attrs={"class" : "screenshot-carousel-content-container"})
+		images = div_images.find_all('img')
+		info.images = [self.br.retrieve(img["src"])[0] for img in images]
+
 		info.debug()
 		return info

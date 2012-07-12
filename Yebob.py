@@ -19,7 +19,7 @@ class Yebob:
 		self.br.select_form(nr=0)
 		self.br.form['na']= username
 		self.br.form['pw']= password
-		self.br.submit().read()
+		self.br.submit().read()	
 		
 	def post_app_info(self, info):
 		params = urlencode({"c":"game"})
