@@ -10,14 +10,26 @@ from Yebob import Yebob
 def usage():  
 	print("%s <app_url_in_market>" %sys.argv[0]); 
 	print("\t<app_url_in_market> is the app url in market or app store"); 
-	print("\t         %s \"http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8\"" %sys.argv[0]); 
-	print("\t         %s \"http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8\"" %sys.argv[0]); 
-	print("\t         %s \"https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN\"" %sys.argv[0]); 
-	print("\t         %s \"https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh\"" %sys.argv[0]); 
-	print("\t         %s \"https://play.google.com/store/apps/developer?id=GoodTeam\"" %sys.argv[0]); 
-	print("\t         %s \"http://www.51ipa.com/games/rpg/\"" %sys.argv[0]); 
-	print("\t         %s \"http://www.51ipa.com/games/rpg/PiPHero-iPhone.html\"" %sys.argv[0]); 
-	
+	print
+	print("market lists:")
+	print("+ itunes.apple.com")
+	print("http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8"); 
+	print("http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8"); 
+	print
+	print("+ play.google.com")
+	print("https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"); 
+	print("https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh"); 
+	print("https://play.google.com/store/apps/developer?id=GoodTeam"); 
+	print
+	print("+ 51ipa.com")
+	print("http://www.51ipa.com/games/rpg/"); 
+	print("http://www.51ipa.com/games/rpg/PiPHero-iPhone.html"); 
+	print
+	print("- d.cn")
+	print("http://android.d.cn/game/"); 
+	print("http://android.d.cn/game/rpg_0_all_all_update_7/"); 
+	print("http://android.d.cn/game/8213.html"); 
+		
 def get_market(app_url):
 	if "http://itunes.apple.com/" in app_url:
 		return ItunesApp()

@@ -13,6 +13,10 @@ yebob_utils
 	./main.py "http://www.51ipa.com/games/rpg/"
 	./main.py "http://www.51ipa.com/games/rpg/PiPHero-iPhone.html
 
+	./main.py "http://android.d.cn/game/"
+	./main.py "http://android.d.cn/game/rpg_0_all_all_update_7/"
+	./main.py "http://android.d.cn/game/8213.html"
+
 
 Config
 ====
