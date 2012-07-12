@@ -41,5 +41,10 @@ class ItunesApp:
 		artwork = soup.find(id="left-stack").div.img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
 		
+		div_images = soup.find('div', attrs={"class" : "screenshots"})
+		print div_images
+		images = div_images.find_all('img')
+		info.images = [self.br.retrieve(img["src"])[0] for img in images]
+
 		info.debug()
 		return info
