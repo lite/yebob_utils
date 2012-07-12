@@ -3,11 +3,11 @@
 
 import yaml
 from urllib import urlencode
-from mechanize import Browser
+from mechanize import Browser, RobustFactory
 
 class Yebob:
 	def __init__(self, config):
-		self.br = Browser()
+		self.br = Browser(factory=RobustFactory())
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
 
 		config = yaml.load(file(config, 'r'))
@@ -42,12 +42,22 @@ class Yebob:
 		info.product_id = self.br.form["product_id"]
 		print info.product_id
 		self.upload_app_icon(info)
+		self.upload_app_images(info)
+		
 		return info.product_id
 		
 	def upload_app_icon(self, info):
 		uri = "http://www.yebob.com/game/product/update-logo?product_id=%s" % (info.product_id)
+		self.upload_image(uri, info.artwork)
+		
+	def upload_app_images(self, info):
+		uri = "http://www.yebob.com/game/product/add-photos?product_id=%s" % (info.product_id)
+		for img in info.images:
+			self.upload_image(uri, img)
+
+	def upload_image(self, uri, img):
+		print "upload image " + img
 		self.br.open(uri).read()
 		self.br.select_form(nr=1)
-		self.br.form.add_file(open(info.artwork), 'image/jpeg', info.artwork, name='file')
+		self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
 		self.br.submit().read()
-		

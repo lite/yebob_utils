@@ -18,7 +18,12 @@ class TestYebob(unittest.TestCase):
 		info = self.new_app_info()
 		info.product_id = "iwo6cpb43y"
 		self.yebob.upload_app_icon(info)
-		
+	
+	def test_upload_app_images(self):
+		info = self.new_app_info()
+		info.product_id = "iwo6cpb43y"
+		self.yebob.upload_app_images(info)
+	
 	def new_app_info(self):
 		info = AppInfo()
 		info.name = "Motion Math Zoom"
