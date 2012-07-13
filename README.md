@@ -1,27 +1,39 @@
 yebob_utils
 ===========
 
-	./main.py <app_url_in_market>
-		<app_url_in_market> is the app url in market or app store
-	./main.py "http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8"
-	./main.py "http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8"
-	
-	./main.py "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
-	./main.py "https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh"
-	./main.py "https://play.google.com/store/apps/developer?id=GoodTeam"
+	main.py <app_url_in_market>
+			<app_url_in_market> is the app url in market or app store
 
-	./main.py "http://www.51ipa.com/games/rpg/"
-	./main.py "http://www.51ipa.com/games/rpg/PiPHero-iPhone.html
+	market lists:
 
-	./main.py "http://android.d.cn/game/"
-	./main.py "http://android.d.cn/game/rpg_0_all_all_update_7/"
-	./main.py "http://android.d.cn/game/8213.html"
+	+ itunes.apple.com
+	http://itunes.apple.com/cn/genre/ios-you-xi/id6014?mt=8
+	http://itunes.apple.com/cn/app/toca-robot-lab/id434826169?mt=8
 
+	+ play.google.com
+	https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN
+	https://play.google.com/store/apps/details?id=com.catstudio.soldierofglorycnzh
+	https://play.google.com/store/apps/developer?id=GoodTeam
+
+	+ 51ipa.com
+	http://www.51ipa.com/games/rpg/
+	http://www.51ipa.com/games/rpg/PiPHero-iPhone.html
+
+	- d.cn
+	http://android.d.cn/game/
+	http://android.d.cn/game/rpg_0_all_all_update_7/
+	http://android.d.cn/game/8213.html
+
+	- windowsphone.com
+	http://www.windowsphone.com/zh-CN/games?list=top
+	http://www.windowsphone.com/zh-CN/categories/actionandadventure
+	http://www.windowsphone.com/zh-CN/publishers/成都维动科技有限责任公司
+	http://www.windowsphone.com/zh-CN/apps/4a9e9b87-ccd8-4c95-8eef-846bfadc6e1e
 
 Config
 ====
 
-  mv config.yaml.example config.yaml
+	mv config.yaml.example config.yaml
 
 Then fill your yebob username and password in config.yaml
 

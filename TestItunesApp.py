@@ -15,8 +15,8 @@ class TestItunesApp(unittest.TestCase):
 		assert len(links) != 0, "len(links) is 0"
 		
  	def test_get_app_info(self):
-		#uri = "http://itunes.apple.com/cn/app/motion-math-zoom/id451793073"
- 		uri = "http://itunes.apple.com/cn/app/qq-dou-de-zhu/id342994828?mt=8"
+		uri = "http://itunes.apple.com/cn/app/zuo-you-nao-shi-yan-shi-ii/id518204539?mt=8"
+		# uri = "http://itunes.apple.com/cn/app/motion-math-zoom/id451793073"
  		info = self.itunes.get_app_info(uri)
 		assert info.name != None, "app name is None"
 		assert info.artwork != None, "app artwork is None"

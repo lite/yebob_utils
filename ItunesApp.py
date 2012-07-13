@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import urlparse
 from bs4 import BeautifulSoup
 from mechanize import Browser
 from AppInfo import AppInfo
@@ -11,6 +12,10 @@ class ItunesApp:
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
 
 	def get_app_links(self, uri):
+		parts = urlparse.urlparse(uri)
+		if "/app/" in parts.path:
+			return [uri]
+
 		res = self.br.open(uri)
 		data = res.get_data() 
 		soup = BeautifulSoup(data, "html5lib")
@@ -25,7 +30,7 @@ class ItunesApp:
 		soup = BeautifulSoup(data, "html5lib")
 		info = AppInfo()
 		#info.name = soup.html.head.title.renderContents()
-		info.name = soup.find(id="content").h1.renderContents()
+		info.name = soup.find(id="desktopContentBlockId").h1.renderContents()
 		info.category = ""
 		info.version = ""
 		info.size = ""

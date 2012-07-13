@@ -1,32 +1,36 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import urlparse
 from bs4 import BeautifulSoup
-from mechanize import Browser
+from mechanize import Browser, CookieJar
 from AppInfo import AppInfo
 
 class GooglePlayApp:
-	host="https://play.google.com"
-
 	def __init__(self):
-
 		self.br = Browser()
+		self.cj = CookieJar()
+		self.br.set_cookiejar(self.cj)
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive"), 
-                     #("HTTP_KEEP_ALIVE", "300"), 
-                     #("HTTP_ACCEPT", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"),
-                     #("HTTP_ACCEPT_ENCODING", "gzip,deflate"), 
-                     #("HTTP_ACCEPT_LANGUAGE", "en-us,en;q=0.5"), 
-                     #("HTTP_USER_AGENT", "Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0")
+                     ("HTTP_KEEP_ALIVE", "300"), 
+                     ("HTTP_ACCEPT", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"),
+                     ("HTTP_ACCEPT_ENCODING", "gzip,deflate"), 
+                     ("HTTP_ACCEPT_LANGUAGE", "en-us,en;q=0.5"), 
+                     ("HTTP_USER_AGENT", "Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0")
                      ]
 		
 	def get_app_links(self, uri):
+		parts = urlparse.urlparse(uri)
+		if "/store/apps/details" in parts.path:
+			return [uri]
+
 		res = self.br.open(uri)
 		data = res.get_data()
 		soup = BeautifulSoup(data, "html5lib")
 		snippet = soup.find('div', attrs={"class" : "num-pagination-page"})
 		urls = snippet.find_all("a", attrs={"class" : "title"})
 		
-		return [ self.host+url.get('href') for url in urls ]
+		return [ parts._replace(path=url.get('href'), query="").geturl() for url in urls ]
 			
 	def get_app_info(self, uri):
 		res = self.br.open(uri)

@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import re, urlparse
+import urlparse
 from bs4 import BeautifulSoup, Comment
 from mechanize import Browser
 from AppInfo import AppInfo
 
-class Www51ipaApp:
+class DcnApp:
 	def __init__(self):
 		self.br = Browser()
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive"),]
-		self.pat = re.compile('<!--.+-->', re.DOTALL | re.MULTILINE )
-
+	
 	def get_app_links(self, uri):
 		parts = urlparse.urlparse(uri)
 		if ".html" in parts.path:
@@ -20,8 +19,7 @@ class Www51ipaApp:
 		res = self.br.open(uri)
 		data = res.get_data()
 		soup = BeautifulSoup(data, "html5lib")
-		snippet = soup.find('div', attrs={"class" : "listbox"})
-		urls = snippet.find_all("a", attrs={"class" : "title"})
+		urls = soup.find_all("a", attrs={"class" : "gamesoft_link"})
 		
 		return [ parts._replace(path=url.get('href')).geturl() for url in urls ]
 
@@ -29,7 +27,7 @@ class Www51ipaApp:
 		res = self.br.open(uri)
 		data = res.get_data()
 		soup = BeautifulSoup(data, "html5lib")
-		snippet = soup.find('div', attrs={"class" : "dede_pages"})
+		snippet = soup.find('div', attrs={"class" : "pager"})
 		urls = snippet.find_all("a")
 		
 		parts = urlparse.urlparse(uri)
@@ -41,26 +39,26 @@ class Www51ipaApp:
 		soup = BeautifulSoup(data, "html5lib")
 
 		info = AppInfo()
-		div_viewbox = soup.find('div', attrs={"class" : "viewbox"})
-		info.name = div_viewbox.h2.renderContents()
+		div_viewbox = soup.find('div', attrs={"class" : "info_title"})
+		info.name = div_viewbox.text
 		info.category = ""
 		info.version = ""
 		info.size = ""
 		info.updated = ""
 		info.price = ""
-		info.os = "iOS"
+		info.os = ""
 		info.developer = ""
 		info.language = ""
-		desc = soup.find('div', attrs={"class" : "content"}).text
-		info.description = self.pat.sub("", desc).strip()
+		desc = soup.find('div', attrs={"class" : "rom_introductioncon yingyong_intro"}).text
+		info.description = desc
 
-		artwork = soup.find('div', attrs={"class" : "picview"}).img["src"]
+		artwork = soup.find('div', attrs={"class" : "yingyong_img"}).img["src"]
 		info.artwork = self.br.retrieve(artwork)[0]
-	
-		div_images = soup.find('div', attrs={"class" : "content"})
+		
+		div_images = soup.find('div', attrs={"class" : "snapshot_list"})
 		images = div_images.find_all('img')
 		info.images = [self.br.retrieve(img["src"])[0] for img in images]
-	
+
 		info.debug()
 		return info
 	
