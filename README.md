@@ -30,10 +30,9 @@ yebob_utils
 	http://wp.d.cn/app/game/____2_.html
 	http://wp.d.cn/app/slg/16845_radiant+defense.html
 
-	- windowsphone.com
-	http://www.windowsphone.com/zh-CN/games?list=top
-	http://www.windowsphone.com/zh-CN/categories/actionandadventure
-	http://www.windowsphone.com/zh-CN/publishers/成都维动科技有限责任公司
+	+ windowsphone.com
+	http://www.windowsphone.com/zh-CN/categories/actionandadventure?list=top
+	http://www.windowsphone.com/zh-CN/publishers/Hexage
 	http://www.windowsphone.com/zh-CN/apps/4a9e9b87-ccd8-4c95-8eef-846bfadc6e1e
 
 Config

@@ -7,6 +7,7 @@ from ItunesApp import ItunesApp
 from GooglePlayApp import GooglePlayApp
 from Www51ipaApp import Www51ipaApp
 from DcnApp import DcnApp
+from WinPhoneApp import WinPhoneApp
 from Yebob import Yebob
 
 def usage():  
@@ -39,10 +40,9 @@ def usage():
 	print("http://wp.d.cn/app/game/____2_.html");
 	print("http://wp.d.cn/app/slg/16845_radiant+defense.html");
 	print
-	print("- windowsphone.com")
-	print("http://www.windowsphone.com/zh-CN/games?list=top"); 
-	print("http://www.windowsphone.com/zh-CN/categories/actionandadventure")
-	print("http://www.windowsphone.com/zh-CN/publishers/成都维动科技有限责任公司")
+	print("+ windowsphone.com")
+	print("http://www.windowsphone.com/zh-CN/categories/actionandadventure?list=top")
+	print("http://www.windowsphone.com/zh-CN/publishers/Hexage")
 	print("http://www.windowsphone.com/zh-CN/apps/4a9e9b87-ccd8-4c95-8eef-846bfadc6e1e"); 
 		
 def get_market(uri):
@@ -55,6 +55,8 @@ def get_market(uri):
 		return Www51ipaApp()
 	elif ".d.cn" in parts.netloc:
 		return DcnApp()
+	elif "www.windowsphone.com" in parts.netloc:
+		return WinPhoneApp()
 
 if "__main__" == __name__:  
 	if len(sys.argv) != 2:  

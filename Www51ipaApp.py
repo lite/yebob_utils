@@ -23,7 +23,7 @@ class Www51ipaApp:
 		snippet = soup.find('div', attrs={"class" : "listbox"})
 		urls = snippet.find_all("a", attrs={"class" : "title"})
 		
-		return [ parts._replace(path=url.get('href')).geturl() for url in urls ]
+		return list(set([ parts._replace(path=url.get('href')).geturl() for url in urls ]))
 
 	def get_app_pages(self, uri):
 		res = self.br.open(uri)
