@@ -32,6 +32,12 @@ def usage():
 	print("http://android.d.cn/game/"); 
 	print("http://android.d.cn/game/rpg_0_all_all_update_7/"); 
 	print("http://android.d.cn/game/8213.html"); 
+	print("http://ios.d.cn/apps/games.html");
+	print("http://ios.d.cn/apps/iphone-games--------list-2.html");
+	print("http://ios.d.cn/apps/Fast+Five+the+Movie%3a+Official+Game-5466.html");
+	print("http://wp.d.cn/app/game/");
+	print("http://wp.d.cn/app/game/____2_.html");
+	print("http://wp.d.cn/app/slg/16845_radiant+defense.html");
 	print
 	print("- windowsphone.com")
 	print("http://www.windowsphone.com/zh-CN/games?list=top"); 
