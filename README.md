@@ -1,7 +1,7 @@
 yebob_utils
 ===========
 
-	main.py <app_url_in_market>
+	./src/main.py <app_url_in_market>
 			<app_url_in_market> is the app url in market or app store
 
 	market lists:
@@ -38,14 +38,23 @@ yebob_utils
 Config
 ====
 
-	mv config.yaml.example config.yaml
+	mv ./conf/config.yaml.example ./conf/config.yaml
 
 Then fill your yebob username and password in config.yaml
+
+Test
+====
+
+	pip install nose
+	nosetests -w . ./test
+	nosetests -w . ./test/test_YebobDoc.py
 
 Thanks
 ====
 
++ [nose](https://github.com/nose-devs/nose)
 + [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
 + [Mechanize](http://wwwsearch.sourceforge.net/mechanize/)
 + [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 + [html5lib](https://code.google.com/p/html5lib/wiki/UserDocumentation)
++ [html2text](https://github.com/aaronsw/html2text/)
