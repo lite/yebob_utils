@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import sys, unittest
+import unittest
+import sys
+sys.path.append('./src')
+
 from YebobDoc import YebobDoc
 from mechanize import Browser
 from bs4 import BeautifulSoup

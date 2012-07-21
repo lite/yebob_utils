@@ -48,6 +48,7 @@ Test
 	pip install nose
 	nosetests -w . ./test
 	nosetests -w . ./test/test_YebobDoc.py
+	python test/test_YebobDoc.py
 
 Thanks
 ====

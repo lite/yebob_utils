@@ -10,10 +10,6 @@ class Yebob:
 	def __init__(self, config):
 		self.doc = YebobDoc()
 
-		self.down_br = Browser()
-		self.cj = CookieJar()
-		self.down_br.set_cookiejar(self.cj)
-		
 		self.br = Browser()
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
 
@@ -22,15 +18,14 @@ class Yebob:
 		password = config["pass"]
 
 		uri = "http://www.yebob.com/accounts/Login"
-		self.br.open(uri)
+		print self.br.open(uri).read()
 		self.br.select_form(nr=0)
 		self.br.form['na']= username
 		self.br.form['pw']= password
 		self.br.submit().read()	
 
 	def post_app_info(self, info):
-		params = urlencode({"c":"game"})
-		uri =  "http://www.yebob.com/game/product/create?%s" % (params)
+		uri =  "http://www.yebob.com/game/product/create"
 		self.br.open(uri).read()
 		self.br.select_form(nr=1)
 		self.br.form['sname']= info.name
@@ -51,23 +46,26 @@ class Yebob:
 		print info.product_id
 		self.upload_app_icon(info)
 		self.upload_app_images(info)
-		
 		return info.product_id
 		
 	def upload_app_icon(self, info):
 		uri = "http://www.yebob.com/game/product/update-logo?product_id=%s" % (info.product_id)
-		tmp = self.down_br.retrieve(info.artwork)[0]
-		self.upload_image(uri, tmp)
+		self.upload_image(uri, self.down_image(info.artwork))
 		
 	def upload_app_images(self, info):
 		uri = "http://www.yebob.com/game/product/add-photos?product_id=%s" % (info.product_id)
 		for img in info.images:
-			tmp = self.down_br.retrieve(img)[0]
-			self.upload_image(uri, tmp)
+			self.upload_image(uri, self.down_image(img))
+	
+	def down_image(self, img):
+		self.down_br = Browser()
+		self.down_cj = CookieJar()
+		self.down_br.set_cookiejar(self.down_cj)
+		return self.down_br.retrieve(img)[0]
 
 	def upload_image(self, uri, img):
-		print "upload image " + img
-		self.br.open(uri).read()
-		self.br.select_form(nr=1)
+		print "upload %s to %s" %(img, uri)
+		print self.br.open(uri).read()
+		self.br.select_form(nr=0)
 		self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
 		self.br.submit().read()

@@ -2,7 +2,11 @@
 # coding=utf-8
 
 import unittest
+import sys
+sys.path.append('./src')
+
 from DcnApp import DcnApp
+
 
 class TestDcnApp(unittest.TestCase):
 	def setUp(self):

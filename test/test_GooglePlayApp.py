@@ -2,6 +2,9 @@
 # coding=utf-8
 
 import unittest
+import sys
+sys.path.append('./src')
+
 from GooglePlayApp import GooglePlayApp
 
 class TestGooglePlayApp(unittest.TestCase):

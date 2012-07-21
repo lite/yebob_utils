@@ -2,6 +2,9 @@
 # coding=utf-8
 
 import unittest
+import sys
+sys.path.append('./src')
+
 from Yebob import Yebob
 from AppInfo import AppInfo
 
