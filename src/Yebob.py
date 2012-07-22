@@ -11,6 +11,8 @@ class Yebob:
 		self.doc = YebobDoc()
 
 		self.br = Browser()
+		self.cj = CookieJar()
+		self.br.set_cookiejar(self.cj)
 		self.br.addheaders = [("HTTP_CONNECTION", "keep-alive")]
 
 		config = yaml.load(file(config, 'r'))
@@ -18,7 +20,8 @@ class Yebob:
 		password = config["pass"]
 
 		uri = "http://www.yebob.com/accounts/Login"
-		print self.br.open(uri).read()
+		print uri
+		self.br.open(uri).read()
 		self.br.select_form(nr=0)
 		self.br.form['na']= username
 		self.br.form['pw']= password
@@ -26,6 +29,7 @@ class Yebob:
 
 	def post_app_info(self, info):
 		uri =  "http://www.yebob.com/game/product/create"
+		print uri
 		self.br.open(uri).read()
 		self.br.select_form(nr=1)
 		self.br.form['sname']= info.name
@@ -58,6 +62,7 @@ class Yebob:
 			self.upload_image(uri, self.down_image(img))
 	
 	def down_image(self, img):
+		print "down image from " + img
 		self.down_br = Browser()
 		self.down_cj = CookieJar()
 		self.down_br.set_cookiejar(self.down_cj)
@@ -65,7 +70,7 @@ class Yebob:
 
 	def upload_image(self, uri, img):
 		print "upload %s to %s" %(img, uri)
-		print self.br.open(uri).read()
+		self.br.open(uri).read()
 		self.br.select_form(nr=0)
 		self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
 		self.br.submit().read()

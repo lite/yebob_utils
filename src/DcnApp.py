@@ -38,6 +38,9 @@ class DcnApp:
 		elif "wp.d.cn" in parts.netloc:
 			return self.get_wp_app_pages(uri)
 
+	def get_url(self, uri, new_path):
+		return urlparse.urlparse(uri)._replace(path=new_path).geturl();
+
 	def get_wp_app_pages(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data()
@@ -45,8 +48,7 @@ class DcnApp:
 		snippet = soup.find(id="ctl00_ContentPlaceHolder1_ctl00_pager")
 		urls = snippet.find_all("a")
 		
-		parts = urlparse.urlparse(uri)
-		return list(set([uri] + [ parts._replace(path=url.get('href')).geturl() for url in urls ]))
+		return list(set([uri] + [ self.get_url(uri, url.get('href')) for url in urls ]))
 	
 	def get_wp_app_links(self, uri):
 		m = re.search(r"/\d+_.+.html", uri)
@@ -59,8 +61,7 @@ class DcnApp:
 		div_lists = soup.find('div', attrs={"class" : "listsoga"})
 		urls = div_lists.find_all("a")
 		
-		parts = urlparse.urlparse(uri)
-		return list(set([ parts._replace(path=url.get('href')).geturl() for url in urls ]))
+		return list(set([ self.get_url(uri, url.get('href')) for url in urls ]))
 
 	def get_wp_app_info(self, uri):
 		res = self.br.open(uri)
@@ -81,13 +82,12 @@ class DcnApp:
 		desc = soup.find(id="discription").prettify() # not description
 		info.description = desc
 
-		parts = urlparse.urlparse(uri)
 		artwork = soup.find('div', attrs={"class" : "deinfo"}).img["src"]
-		info.artwork = parts._replace(path=artwork).geturl()
+		info.artwork = self.get_url(uri, artwork)
 		
 		div_images = soup.find('div', attrs={"class" : "screenshots-container"})
 		images = div_images.find_all('img')
-		info.images = [parts._replace(path=img["src"]).geturl() for img in images]
+		info.images = [self.get_url(uri, img["src"]) for img in images]
 
 		info.debug()
 		return info
@@ -99,8 +99,7 @@ class DcnApp:
 		snippet = soup.find('div', attrs={"class" : "page"})
 		urls = snippet.find_all("a")
 		
-		parts = urlparse.urlparse(uri)
-		return list(set([uri] + [ parts._replace(path=url.get('href')).geturl() for url in urls ]))
+		return list(set([ self.get_url(uri, url.get('href')) for url in urls ]))
 
 	def get_ios_app_links(self, uri):
 		m = re.search(r"(-list)?-\d+.html", uri)
@@ -114,9 +113,8 @@ class DcnApp:
 		div_mtop10 = soup.find("div", attrs={"class" : "yylb_mid"})
 		urls = div_mtop10.find_all("a")
 		
-		parts = urlparse.urlparse(uri)
-		return list(set([ parts._replace(path=url.get('href')).geturl() for url in urls ]))
-	
+		return list(set([ self.get_url(uri, url.get('href')) for url in urls ]))
+
 	def get_ios_app_info(self, uri):
 		res = self.br.open(uri)
 		data = res.get_data() 
@@ -136,11 +134,11 @@ class DcnApp:
 		info.description = desc
 
 		artwork = soup.find('img', attrs={"class" : "img175"})["src"]
-		info.artwork = artwork
+		info.artwork = self.get_url(uri, artwork)
 		
 		div_images = soup.find('div', attrs={"class" : "yyxq_yyjt"})
 		images = div_images.find_all('img')
-		info.images = [img["src"] for img in images]
+		info.images = [self.get_url(uri, img["src"]) for img in images]
 
 		info.debug()
 		return info
@@ -152,8 +150,7 @@ class DcnApp:
 		snippet = soup.find('div', attrs={"class" : "pager"})
 		urls = snippet.find_all("a")
 		
-		parts = urlparse.urlparse(uri)
-		return list(set([uri] + [ parts._replace(path=url.get('href')).geturl() for url in urls ]))
+		return list(set([ self.get_url(uri, url.get('href')) for url in urls ]))
 
 	def get_android_app_links(self, uri):
 		parts = urlparse.urlparse(uri)
@@ -165,7 +162,7 @@ class DcnApp:
 		soup = BeautifulSoup(data, "html5lib")
 		urls = soup.find_all("a", attrs={"class" : "gamesoft_link"})
 		
-		return [ parts._replace(path=url.get('href')).geturl() for url in urls ]
+		return list(set([ self.get_url(uri, url.get('href')) for url in urls ]))
 
 	def get_android_app_info(self, uri):
 		res = self.br.open(uri)
