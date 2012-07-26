@@ -39,13 +39,15 @@ Config
 ====
 
 	mv ./conf/config.yaml.example ./conf/config.yaml
+	pip freeze > requirements.txt
+    pip install -r requirements.txt 
+    
 
 Then fill your yebob username and password in config.yaml
 
 Test
 ====
 
-	pip install nose
 	nosetests -w . ./test
 	nosetests -w . ./test/test_YebobDoc.py
 	python test/test_YebobDoc.py
@@ -56,6 +58,6 @@ Thanks
 + [nose](https://github.com/nose-devs/nose)
 + [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
 + [Mechanize](http://wwwsearch.sourceforge.net/mechanize/)
-+ [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
++ [BeautifulSoup4](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 + [html5lib](https://code.google.com/p/html5lib/wiki/UserDocumentation)
 + [html2text](https://github.com/aaronsw/html2text/)

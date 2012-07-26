@@ -14,14 +14,9 @@ class TestYebob(unittest.TestCase):
 
 	def test_post_app_info(self):
 		info = self.new_app_info()
-		product_id = self.yebob.post_app_info(info)
-		assert product_id != None, "product_id is None"
+		self.yebob.post_app_info(info)
+		assert info.product_id != None, "product_id is None"
 
-	def test_upload_app_icon(self):
-		info = self.new_app_info()
-		info.product_id = "iwo6cpb43y"
-		self.yebob.upload_app_icon(info)
-	
 	def test_upload_app_images(self):
 		info = self.new_app_info()
 		info.images = ["https://lh3.ggpht.com/yDaXQWy-sjDXWeYhCo53duifTwOofXZn0IWC7tYQte2L9PjqBVQXLFVlwBOdg5tZ3fQ=h230",

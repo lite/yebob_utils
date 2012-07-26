@@ -37,7 +37,7 @@ class ItunesApp:
 		info.price = ""
 		info.os = "iOS"
 		developer = soup.find(id="desktopContentBlockId").h2.renderContents()
-		info.developer = developer[12:-1] 
+		info.developer = developer
 		info.language = ""
 		desc = soup.find('div', attrs={"class" : "product-review"}).prettify()
 		info.description = desc
