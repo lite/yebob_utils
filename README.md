@@ -41,7 +41,7 @@ Config
 	mv ./conf/config.yaml.example ./conf/config.yaml
 	pip freeze > requirements.txt
     pip install -r requirements.txt 
-    
+    workon yebob    
 
 Then fill your yebob username and password in config.yaml
 
