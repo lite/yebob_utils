@@ -45,7 +45,8 @@ class Yebob:
     self.br.form['site']= ""
     self.br.form['year']= ""
     self.br.submit().read()
-    
+  
+    # http://www.yebob.com/game/product/edit?id=iuqftrcvmg&type=params
     # upload_app_icon
     img = self.down_image(info.artwork)
     self.br.select_form(nr=1)
