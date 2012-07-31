@@ -30,14 +30,14 @@ class ItunesApp:
         data = res.get_data() 
         soup = BeautifulSoup(data, "html5lib")
         info = AppInfo()
-        info.name = soup.find(id="desktopContentBlockId").h1.renderContents()
+        info.name = soup.find(id="desktopContentBlockId").h1.text
         info.category = ""
         info.version = ""
         info.size = ""
         info.updated = ""
         info.price = ""
         info.os = "iOS"
-        developer = soup.find(id="desktopContentBlockId").h2.renderContents()
+        developer = soup.find(id="desktopContentBlockId").h2.text
         info.developer = developer.split("：")[1] if "：" in developer else developer
         info.language = ""
         desc = soup.find('div', attrs={"class" : "product-review"}).p.prettify()
