@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import yaml
+import tempfile,yaml
 from urllib import urlencode
 from mechanize import Browser, CookieJar
 from YebobDoc import YebobDoc
 
 class Yebob:
-  def __init__(self, config):
+    def __init__(self, config):
 		self.doc = YebobDoc()
 
 		self.br = Browser()
@@ -27,7 +27,7 @@ class Yebob:
 		self.br.form['pw']= password
 		self.br.submit().read()	
   
-  def post_app_info(self, info):
+    def post_app_info(self, info):
         uri =  "http://www.yebob.com/game/product/create"
         print uri
         self.br.open(uri).read()
@@ -44,43 +44,42 @@ class Yebob:
         self.br.form['lang[]']= "中文"
         self.br.form['site']= ""
         self.br.form['year']= ""
-        self.br.submit().read()
+        print self.br.submit().read()
   
         # http://www.yebob.com/game/product/edit?id=iuqftrcvmg&type=params
-        # upload_app_icon
-        img = self.down_image(info.artwork)
         self.br.select_form(nr=1)
         info.product_id = self.br.form["product_id"]
-        print info.product_id
-        self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
-        self.br.submit().read()
+        info.product_id
+        
+        # upload_app_icon
+        #img = self.down_image(info.artwork)
+        #self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
+        #self.br.submit().read()
+        self.upload_app_icon(info)
     
         # upload_app_images
         self.upload_app_images(info)
         
-  def down_image(self, img):
+    def upload_app_icon(self, info):
+        uri = "http://www.yebob.com/game/product/update-logo?product_id=%s" % (info.product_id)
+        self.upload_image(uri, self.down_image(info.artwork))
+      
+    def down_image(self, img):
         print "down image from " + img
         down_br = Browser()
         down_cj = CookieJar()
         down_br.set_cookiejar(down_cj)
-        down_br.addheaders = [
-            ("HTTP_CONNECTION", "keep-alive"), 
-            ("HTTP_ACCEPT", "*/*"),
-            ("HTTP_ACCEPT_ENCODING", "sdch"),
-            ("HTTP_CACHE_CONTROL", "max-age=0"),
-            ("HTTP_USER_AGENT", "Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0")
-            ]
-                
-        return down_br.retrieve(img)[0]
+        fn = tempfile.mktemp(suffix='.png')
+        return down_br.retrieve(img, filename = fn)[0]
         
-  def upload_app_images(self, info):
+    def upload_app_images(self, info):
 		uri = "http://www.yebob.com/game/product/add-photos?product_id=%s" % (info.product_id)
 		for img in info.images:
 			self.upload_image(uri, self.down_image(img))
 	
-  def upload_image(self, uri, img):
+    def upload_image(self, uri, img):
 		print "upload %s to %s" %(img, uri)
 		self.br.open(uri).read()
 		self.br.select_form(nr=1)
-		self.br.form.find_control(type='file').add_file(open(img), 'image/jpeg', img)
+		self.br.form.find_control(type='file').add_file(open(img), 'image/png', img)
 		self.br.submit().read()

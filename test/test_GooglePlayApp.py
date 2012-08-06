@@ -11,17 +11,17 @@ class TestGooglePlayApp(unittest.TestCase):
     def setUp(self):
         self.market = GooglePlayApp()
     
-    # def test_get_app_links(self):
-    #     uri = "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
-    #          links = self.market.get_app_links(uri)
-    #          assert links != None, "links is None"
-    #     assert len(links) != 0, "len(links) is 0"
-    #     
-    # def test_get_links_by_developer(self):
-    #     uri = "https://play.google.com/store/apps/developer?id=GoodTeam"
-    #     links = self.market.get_app_links(uri)
-    #     assert links != None, "links is None"
-    #     assert len(links) != 0, "len(links) is 0"
+    def test_get_app_links(self):
+        uri = "https://play.google.com/store/apps/category/GAME/collection/topselling_free?hl=zh_CN"
+        links = self.market.get_app_links(uri)
+        assert links != None, "links is None"
+        assert len(links) != 0, "len(links) is 0"
+        
+    def test_get_links_by_developer(self):
+        uri = "https://play.google.com/store/apps/developer?id=GoodTeam"
+        links = self.market.get_app_links(uri)
+        assert links != None, "links is None"
+        assert len(links) != 0, "len(links) is 0"
 		
     def test_get_app_info(self):
         #uri = "https://play.google.com/store/apps/details?id=com.feelingtouch.racingcar"

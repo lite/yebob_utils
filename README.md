@@ -38,6 +38,16 @@ yebob_utils
 Config
 ====
 
+Add these to /etc/hosts
+    203.208.46.30 lh1.ggpht.com
+    203.208.46.30 lh2.ggpht.com
+    203.208.46.30 lh3.ggpht.com
+    203.208.46.30 lh4.ggpht.com
+    203.208.46.30 lh5.ggpht.com
+    203.208.46.30 lh6.ggpht.com
+
+Then 
+
     mv ./conf/config.yaml.example ./conf/config.yaml
     curl -s https://raw.github.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | $SHELL
     pip freeze > requirements.txt
