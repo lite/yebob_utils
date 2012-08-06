@@ -38,10 +38,11 @@ yebob_utils
 Config
 ====
 
-	mv ./conf/config.yaml.example ./conf/config.yaml
-	pip freeze > requirements.txt
-    pip install -r requirements.txt 
-    workon yebob    
+    mv ./conf/config.yaml.example ./conf/config.yaml
+    curl -s https://raw.github.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | $SHELL
+    pip freeze > requirements.txt
+    pip install -r requirements.txt
+    workon yebob
 
 Then fill your yebob username and password in config.yaml
 
