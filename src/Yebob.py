@@ -44,7 +44,7 @@ class Yebob:
         self.br.form['lang[]']= "中文"
         self.br.form['site']= ""
         self.br.form['year']= ""
-        print self.br.submit().read()
+        self.br.submit().read()
   
         # http://www.yebob.com/game/product/edit?id=iuqftrcvmg&type=params
         self.br.select_form(nr=1)
