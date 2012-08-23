@@ -48,8 +48,9 @@ Add these to /etc/hosts
 
 Then 
 
-    mv ./conf/config.yaml.example ./conf/config.yaml
-    curl -s https://raw.github.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | $SHELL
+    cp ./conf/config.yaml.example ./conf/config.yaml
+    pip install virtualenv
+    pip install virtualenvwrapper
     pip freeze > requirements.txt
     pip install -r requirements.txt
     workon yebob
