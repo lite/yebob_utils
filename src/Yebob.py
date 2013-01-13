@@ -32,8 +32,9 @@ class Yebob:
         print uri
         self.br.open(uri).read()
         self.br.select_form(nr=1)
-        self.br.form['sname']= info.name
-        self.br.form['cname']= info.name
+        sname = info.name[0:50]
+        self.br.form['sname']= sname
+        self.br.form['cname']= sname
         developer = info.developer[0:30]
         self.br.form['developer[]']= developer
         desc = self.doc.from_html(info.description)
