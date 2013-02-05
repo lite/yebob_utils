@@ -38,16 +38,6 @@ yebob_utils
 Config
 ====
 
-Add these to /etc/hosts
-    203.208.46.30 lh1.ggpht.com
-    203.208.46.30 lh2.ggpht.com
-    203.208.46.30 lh3.ggpht.com
-    203.208.46.30 lh4.ggpht.com
-    203.208.46.30 lh5.ggpht.com
-    203.208.46.30 lh6.ggpht.com
-
-Then 
-
     cp ./conf/config.yaml.example ./conf/config.yaml
     pip install virtualenv
     pip install virtualenvwrapper
@@ -64,11 +54,6 @@ Test
 	nosetests -w . ./test/test_YebobDoc.py
 	python test/test_YebobDoc.py
 
-TBD
-====
-
-    Name should less 60 Bytes    
-
 Thanks
 ====
 
@@ -77,4 +62,3 @@ Thanks
 + [Mechanize](http://wwwsearch.sourceforge.net/mechanize/)
 + [BeautifulSoup4](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 + [html5lib](https://code.google.com/p/html5lib/wiki/UserDocumentation)
-+ [html2text](https://github.com/aaronsw/html2text/)
